@@ -91,7 +91,7 @@ class Post(Plugin.Conversation):
     )
 
     def __init__(self, redis: RedisDB, group_service: GroupService):
-        self.gids = [2]
+        self.gids = [9, 10]
         self.ffmpeg_enable = False
         self.cache_dir = os.path.join(os.getcwd(), "cache")
         self.cache = redis.client

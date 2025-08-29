@@ -93,7 +93,7 @@ class ChatMember(Plugin):
         else:
             try:
                 await context.bot.send_message(
-                    chat.id, f"感谢邀请小{config.notice.bot_name}到本群！请使用 /help 查看咱已经学会的功能。"
+                    chat.id, f"感谢邀请{config.notice.bot_name}到本群！请使用 /help 查看咱已经学会的功能。"
                 )
             except Forbidden as exc:
                 logger.info("发送消息失败 %s", exc.message)

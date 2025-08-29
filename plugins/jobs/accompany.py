@@ -147,7 +147,7 @@ class AccompanySystem(Plugin):
         accompany_list = [i for i in cookie_list if i.user_id in sign_user_list]
         await self._do_accompany_job(context, accompany_list)
 
-    @job.run_daily(time=datetime.time(hour=1, minute=1, second=0), name="AccompanyJob")
+    # @job.run_daily(time=datetime.time(hour=1, minute=1, second=0), name="AccompanyJob")
     @SentryClient.monitor(monitor_slug="AccompanyJob")
     async def accompany(self, context: "ContextTypes.DEFAULT_TYPE"):
         logger.info("正在执行自动角色陪伴")
