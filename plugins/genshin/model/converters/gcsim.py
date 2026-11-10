@@ -56,6 +56,9 @@ def from_character_gcsim_character(character: Character) -> GCSimCharacter:
 GCSIM_CHARACTER_TO_CHARACTER: Dict[GCSimCharacter, Tuple[int, Character]] = {}
 for char in AssetsService.avatar.get_instance().all_items:
     GCSIM_CHARACTER_TO_CHARACTER[from_character_gcsim_character(char.en_name)] = (char.id, char.en_name)
+    if "Traveler" not in char.en_name:
+        # GCSIM also accepts the full name, e.g. `kaedeharakazuha` and `aratakiitto`
+        GCSIM_CHARACTER_TO_CHARACTER[remove_non_words(char.en_name.lower())] = (char.id, char.en_name)
 for alias, char in CHARACTER_ALIASES.items():
     if alias not in GCSIM_CHARACTER_TO_CHARACTER:
         if char in GCSIM_CHARACTER_TO_CHARACTER:
@@ -72,7 +75,7 @@ for alias, _weapon in WEAPON_ALIASES.items():
     if alias not in GCSIM_WEAPON_TO_WEAPON:
         if _weapon in GCSIM_WEAPON_TO_WEAPON:
             GCSIM_WEAPON_TO_WEAPON[alias] = GCSIM_WEAPON_TO_WEAPON[_weapon]
-        else:
+        elif alias != _weapon:
             logger.warning("Weapon alias %s not found in GCSIM", alias)
 
 GCSIM_ARTIFACT_TO_ARTIFACT: Dict[GCSimSet, Tuple[int, Set]] = {}
@@ -82,7 +85,7 @@ for alias, _artifact in ARTIFACT_ALIASES.items():
     if alias not in GCSIM_ARTIFACT_TO_ARTIFACT:
         if _artifact in GCSIM_ARTIFACT_TO_ARTIFACT:
             GCSIM_ARTIFACT_TO_ARTIFACT[alias] = GCSIM_ARTIFACT_TO_ARTIFACT[_artifact]
-        else:
+        elif alias != _artifact:
             logger.warning("Artifact alias %s not found in GCSIM", alias)
 
 
