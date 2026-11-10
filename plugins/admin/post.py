@@ -594,6 +594,9 @@ class Post(Plugin.Conversation):
         if len(config.channels) > 1:
             if "千星奇域" in post_text or "千星商城" in post_text or post_user_id == 378227958:
                 channel_id = config.channels[1]
+            post_gids = fetched.post_info.gids
+            if post_gids == 10:
+                channel_id = config.channels[1]
         return channel_id
 
     async def get_chat_username(self, chat_id: int) -> str:
